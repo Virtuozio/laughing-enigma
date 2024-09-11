@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Check Password Strength</h2>
+      <br />
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Enter your password</mat-label>
+            <input
+              matInput
+              [type]="hide() ? 'password' : 'text'"
+              class="form-control"
+              autocomplete="off"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+            >
+              <mat-icon>{{
+                hide() ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <app-password-strength
+            [passwordToCheck]="signupForm.value.password"
+            (messageEvent)="onMessageReceived($event)"
+          ></app-password-strength>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          mat-raised-button
+          [disabled]="!signupForm.value.password"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
